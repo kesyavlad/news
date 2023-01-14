@@ -1,18 +1,37 @@
-import React, { useState } from "react";
-import Header from "../components/Header/Header";
+import React, { useEffect, useState } from "react";
+import Header from "../components/Header";
 import { Container } from "@mui/material";
-import Main from "../components/Main/Main";
+import Main from "../components/Main";
+import axios from "axios";
+import { News } from "../components/types";
+import useDebonce from "../components/hooks/useDebonce";
 
 const ArticlePage = () => {
-  const url =
-    "https://api.spaceflightnewsapi.net/v3/articles?title_containss=Nasa";
+  const [dataNews, setDataNews] = useState<News[]>([]);
   const [input, setInput] = useState("");
+  const deboncedValue = useDebonce(input, 500);
+  const getPage = () => {
+    axios
+      .get(
+        `https://api.spaceflightnewsapi.net/v3/articles?title_containss=${input}`
+      )
+      .then(({ data }) => {
+        setDataNews(data);
+      })
+      .catch(() => {
+        setDataNews([]);
+      });
+  };
+
+  useEffect(() => {
+    getPage();
+  }, [deboncedValue]);
 
   return (
     <div>
       <Container maxWidth="xl">
         <Header setInput={setInput} />
-        <Main />
+        <Main data={dataNews} />
       </Container>
     </div>
   );
