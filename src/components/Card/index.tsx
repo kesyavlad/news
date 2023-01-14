@@ -26,6 +26,7 @@ const CardNews: FC<cardInterface> = ({
   const date = new Date(Date.parse(publishedAt));
   let month = "";
   let ending = "";
+
   const searchMonth = () => {
     switch (date.getMonth()) {
       case 0:
@@ -66,8 +67,17 @@ const CardNews: FC<cardInterface> = ({
         return (ending = "th");
     }
   };
+  const limitText = (text: string) => {
+    if (text.length > 100) {
+      const result = text.split("");
+      const newText = result.splice(0, 99);
+      return newText.join("") + "...";
+    }
+    return text;
+  };
   searchMonth();
   endingAdd();
+  limitText(summary);
 
   const result = `${month} ${date.getDay()}${ending}, ${date.getFullYear()}`;
   const theme = createTheme({
@@ -80,22 +90,27 @@ const CardNews: FC<cardInterface> = ({
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 400, minHeight: 530 }}>
           <CardMedia
             component="img"
             alt="green iguana"
-            height="140"
+            height="217"
+            width="400"
             image={imageUrl}
           />
           <CardContent>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ paddingBottom: "24px" }}
+            >
               {result}
             </Typography>
             <Typography gutterBottom variant="h5" component="div">
               {title}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {summary}
+              {limitText(summary)}
             </Typography>
           </CardContent>
           <CardActions>
