@@ -6,6 +6,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { Link } from "react-router-dom";
+import EastIcon from "@mui/icons-material/East";
+import "./styleLink.scss";
 
 interface cardInterface {
   id: number;
@@ -21,11 +24,10 @@ const CardNews: FC<cardInterface> = ({
   publishedAt,
   title,
   summary,
-  url,
 }) => {
   const date = new Date(Date.parse(publishedAt));
-  let month = "";
   let ending = "";
+  let month = "";
 
   const searchMonth = () => {
     switch (date.getMonth()) {
@@ -56,7 +58,7 @@ const CardNews: FC<cardInterface> = ({
     }
   };
   const endingAdd = () => {
-    switch (date.getDay()) {
+    switch (date.getDate()) {
       case 1:
         return (ending = "st");
       case 2:
@@ -68,18 +70,17 @@ const CardNews: FC<cardInterface> = ({
     }
   };
   const limitText = (text: string) => {
-    if (text.length > 100) {
+    if (text.length > 99) {
       const result = text.split("");
       const newText = result.splice(0, 99);
       return newText.join("") + "...";
     }
     return text;
   };
-  searchMonth();
   endingAdd();
-  limitText(summary);
+  searchMonth();
 
-  const result = `${month} ${date.getDay()}${ending}, ${date.getFullYear()}`;
+  const result = `${month} ${date.getDate()}${ending}, ${date.getFullYear()}`;
   const theme = createTheme({
     palette: {
       primary: {
@@ -107,7 +108,7 @@ const CardNews: FC<cardInterface> = ({
               {result}
             </Typography>
             <Typography gutterBottom variant="h5" component="div">
-              {title}
+              {limitText(title)}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {limitText(summary)}
@@ -119,7 +120,10 @@ const CardNews: FC<cardInterface> = ({
               color="primary"
               sx={{ textTransform: "none", fontSize: "16px" }}
             >
-              Read more
+              <Link to={`/${id}`} className="link">
+                Read more
+              </Link>
+              <EastIcon fontSize="small" />
             </Button>
           </CardActions>
         </Card>

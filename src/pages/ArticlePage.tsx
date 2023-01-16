@@ -1,37 +1,60 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import { Container } from "@mui/material";
-import Main from "../components/Main";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { News } from "../components/types";
-import useDebonce from "../components/hooks/useDebonce";
+import { ArticlePageInterface } from "../components/types";
+import "./styleArticle.scss";
+import { Container } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import WestIcon from "@mui/icons-material/West";
 
 const ArticlePage = () => {
-  const [dataNews, setDataNews] = useState<News[]>([]);
-  const [input, setInput] = useState("");
-  const deboncedValue = useDebonce(input, 500);
+  const { id } = useParams();
+  const [post, setPost] = useState<ArticlePageInterface>({
+    imageUrl: "",
+    summary: "",
+    title: "",
+  });
   const getPage = () => {
     axios
-      .get(
-        `https://api.spaceflightnewsapi.net/v3/articles?title_containss=${input}`
-      )
+      .get(`https://api.spaceflightnewsapi.net/v3/articles/${id}`)
       .then(({ data }) => {
-        setDataNews(data);
-      })
-      .catch(() => {
-        setDataNews([]);
+        setPost(data);
       });
   };
-
   useEffect(() => {
     getPage();
-  }, [deboncedValue]);
+  }, []);
 
   return (
-    <div>
+    <div className="wrapper">
+      <div className="boxIMG">
+        <img src={post.imageUrl} alt="image" className="img" />
+      </div>
       <Container maxWidth="xl">
-        <Header setInput={setInput} />
-        <Main data={dataNews} />
+        <div className="boxText">
+          <Typography
+            fontSize={"24px"}
+            textAlign={"center"}
+            marginBottom={"50px"}
+            fontStyle={"Montserrat"}
+          >
+            {post.title}
+          </Typography>
+          <Typography fontSize={"14px"} fontStyle={"Montserrat"}>
+            {post.summary}
+          </Typography>
+        </div>
+        <Button
+          size="small"
+          color="primary"
+          sx={{ textTransform: "none", fontSize: "16px" }}
+        >
+          <WestIcon fontSize={"small"} sx={{ color: "black" }} />
+          <Link to={`/`} className="link">
+            Back to homepage
+          </Link>
+        </Button>
       </Container>
     </div>
   );

@@ -6,3 +6,8 @@ export interface News {
   summary: string;
   url: string;
 }
+export interface ArticlePageInterface {
+  imageUrl: string;
+  title: string;
+  summary: string;
+}

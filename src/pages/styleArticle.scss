@@ -1,0 +1,26 @@
+.wrapper{
+  position: relative;
+}
+.boxIMG{
+  position: relative;
+  height: 245px;
+  overflow: hidden;
+  z-index: 1;
+}
+.img{
+  width: 100%;
+}
+.boxText{
+  position: relative;
+  background-color: white;
+  box-shadow: 0 10px 10px rgba(234,230,230,0.8);
+  margin-top: -70px;
+  z-index: 2;
+  padding: 35px 75px 50px 75px;
+  border-radius:5px;
+}
+.link{
+  text-decoration: none;
+  color: black;
+}
+
