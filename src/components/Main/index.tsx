@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import "./mainStyle.scss";
 
 interface mainProp {
-  data: Array<any>; //уточнить
+  data: Array<any>;
 }
 const Main: FC<mainProp> = ({ data }) => {
   return (
