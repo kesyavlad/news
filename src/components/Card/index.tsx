@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import EastIcon from "@mui/icons-material/East";
 import "./styleLink.scss";
 import HightLight from "../HightLight";
+import uuid from "react-uuid";
 
 interface cardInterface {
   id: number;
@@ -78,7 +79,7 @@ const CardNews: FC<cardInterface> = ({
     }
   };
   const limitText = (text: string) => {
-    if (text.length > 99) {
+    if (text.length > 100) {
       const result = text.split("");
       const newText = result.splice(0, 99);
       return newText.join("") + "...";
