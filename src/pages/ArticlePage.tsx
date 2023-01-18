@@ -29,7 +29,7 @@ const ArticlePage = () => {
   return (
     <div className="wrapper">
       <div className="boxIMG">
-        <img src={post.imageUrl} alt="image" className="img" />
+        <img src={post.imageUrl} className="img" alt="logo" />
       </div>
       <Container maxWidth="xl">
         <div className="boxText">

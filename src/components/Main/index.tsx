@@ -17,7 +17,7 @@ const Main: FC<mainProp> = ({ data, input }) => {
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {data.map((element) => (
-          <Grid item xs={2} sm={4} md={4} key={element.id} spacing={2}>
+          <Grid item xs={2} sm={4} md={4} key={element.id}>
             <CardNews
               key={element.id}
               id={element.id}

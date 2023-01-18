@@ -13,7 +13,7 @@ const HomePage = () => {
   const getPage = () => {
     axios
       .get(
-        `https://api.spaceflightnewsapi.net/v3/articles?_limit=150&title_containss=${input}`
+        `https://api.spaceflightnewsapi.net/v3/articles?&title_containss=${input}`
       )
       .then(({ data }) => {
         setDataNews(data);
