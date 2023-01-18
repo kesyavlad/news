@@ -10,22 +10,22 @@ const HomePage = () => {
   const [dataNews, setDataNews] = useState<News[]>([]);
   const [input, setInput] = useState("");
   const deboncedValue = useDebonce(input, 500);
-  const getPage = () => {
-    axios
-      .get(
-        `https://api.spaceflightnewsapi.net/v3/articles?&title_containss=${input}`
-      )
-      .then(({ data }) => {
-        setDataNews(data);
-      })
-      .catch(() => {
-        setDataNews([]);
-      });
-  };
 
   useEffect(() => {
+    const getPage = () => {
+      axios
+        .get(
+          `https://api.spaceflightnewsapi.net/v3/articles?&title_containss=${input}`
+        )
+        .then(({ data }) => {
+          setDataNews(data);
+        })
+        .catch(() => {
+          setDataNews([]);
+        });
+    };
     getPage();
-  }, [deboncedValue]);
+  }, [deboncedValue, input]);
   return (
     <div>
       <Container maxWidth="xl">

@@ -15,16 +15,17 @@ const ArticlePage = () => {
     summary: "",
     title: "",
   });
-  const getPage = () => {
-    axios
-      .get(`https://api.spaceflightnewsapi.net/v3/articles/${id}`)
-      .then(({ data }) => {
-        setPost(data);
-      });
-  };
+
   useEffect(() => {
+    const getPage = () => {
+      axios
+        .get(`https://api.spaceflightnewsapi.net/v3/articles/${id}`)
+        .then(({ data }) => {
+          setPost(data);
+        });
+    };
     getPage();
-  }, []);
+  }, [id]);
 
   return (
     <div className="wrapper">
