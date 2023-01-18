@@ -5,8 +5,9 @@ import "./mainStyle.scss";
 
 interface mainProp {
   data: Array<any>;
+  input: string;
 }
-const Main: FC<mainProp> = ({ data }) => {
+const Main: FC<mainProp> = ({ data, input }) => {
   return (
     <div>
       <p className="paragraphResult">Result: {data.length}</p>
@@ -24,6 +25,7 @@ const Main: FC<mainProp> = ({ data }) => {
               publishedAt={element.publishedAt}
               title={element.title}
               summary={element.summary}
+              input={input}
             />
           </Grid>
         ))}

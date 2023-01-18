@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { Link } from "react-router-dom";
 import EastIcon from "@mui/icons-material/East";
 import "./styleLink.scss";
+import HightLight from "../HightLight";
 
 interface cardInterface {
   id: number;
@@ -16,7 +17,7 @@ interface cardInterface {
   publishedAt: string;
   title: string;
   summary: string;
-  url?: string;
+  input: string;
 }
 const CardNews: FC<cardInterface> = ({
   id,
@@ -24,8 +25,15 @@ const CardNews: FC<cardInterface> = ({
   publishedAt,
   title,
   summary,
+  input,
 }) => {
   const date = new Date(Date.parse(publishedAt));
+  const light = useCallback(
+    (str: string) => {
+      return <HightLight inputFilter={input} str={str} />;
+    },
+    [input]
+  );
   let ending = "";
   let month = "";
 
@@ -108,10 +116,10 @@ const CardNews: FC<cardInterface> = ({
               {result}
             </Typography>
             <Typography gutterBottom variant="h5" component="div">
-              {limitText(title)}
+              {light(limitText(title))}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {limitText(summary)}
+              {light(limitText(summary))}
             </Typography>
           </CardContent>
           <CardActions>

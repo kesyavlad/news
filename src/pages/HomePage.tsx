@@ -30,7 +30,7 @@ const HomePage = () => {
     <div>
       <Container maxWidth="xl">
         <Header setInput={setInput} />
-        <Main data={dataNews} />
+        <Main data={dataNews} input={input} />
       </Container>
     </div>
   );
