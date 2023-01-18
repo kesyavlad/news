@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import EastIcon from "@mui/icons-material/East";
 import "./styleLink.scss";
 import HightLight from "../HightLight";
-import uuid from "react-uuid";
 
 interface cardInterface {
   id: number;
